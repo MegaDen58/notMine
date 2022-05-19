@@ -1,47 +1,56 @@
 package com.company;
 
-import java.util.Locale;
-import java.util.regex.*;
-import java.io.*;
+import java.util.Scanner;
+
+class FirstClass{
+    double a, b, c;
+
+    public FirstClass(double a, double b, double c){
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+    void toSolve(double a, double b, double c){
+        System.out.println(Math.pow((a * b), c));
+    }
+}
+
+class SecondClass{
+    double a, b, c;
+
+    public SecondClass(double a, double b, double c){
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+    void toSolve(double a, double b, double c){
+        System.out.println(Math.pow((a * b), c));
+    }
+}
+
+@FunctionalInterface
+interface Converter<First, Second>{
+    Second convert(First f);
+
+    static <First> boolean isNotNull(First f){
+        return f != null;
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("text.txt")));
-            String s;
-            String x = "";
-            while((s = br.readLine()) != null){
-                x += s + " ";
-            }
-            String text = x.toLowerCase(Locale.ROOT);
-            String forIndex = text.replace("\r\n", " ");
-            char[] gg = forIndex.toCharArray();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Введите значения:");
+        System.out.print("A: \n");
+        double a = in.nextDouble();
+        System.out.print("B: \n");
+        double b = in.nextDouble();
+        System.out.print("C: \n");
+        double c = in.nextDouble();
+        FirstClass fc = new FirstClass(a, b, c);
+        Converter<FirstClass, SecondClass> converter = x -> new SecondClass(x.a, x.b, x.c);
+        SecondClass sc = converter.convert(fc);
+        sc.toSolve(a, b, c);
 
-            String result = "";
-            BufferedReader br1 = new BufferedReader(new FileReader("numbers.txt"));
-            String jj = "";
-            int i = 0;
-            while ((s = br1.readLine()) != null) {
-                jj += s;
-            }
-            String reg = "\\d+(\s*);(\s*)\\d+";
-            String reg1 = ";\\d+";
-            Pattern p = Pattern.compile(reg);
-            Pattern p1 = Pattern.compile(reg1);
-            Matcher m = p.matcher(jj);
-            while(m.find()){
-                String t = m.group().replaceAll(" ", "");
-                Matcher m1 = p1.matcher(t);
-                while(m1.find()){
-                    String g = m1.group().replaceAll(";", "");
-                    int index = Integer.parseInt(g) - 1;
-                    result += gg[index];
-                }
-            }
-            System.out.println(result);
-        }
-        catch (IOException ex){
-            System.out.println(ex.getMessage());
-        }
     }
 }
