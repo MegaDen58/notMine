@@ -5,28 +5,25 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        System.out.print("Введите строку: ");
-        String input = in.nextLine();
-        int counterOne = 0;
-        int counterZero = 0;
-        boolean canNext = true;
-        for(char c : input.toCharArray()){
-            if(c == '1'){
-                counterOne++;
+        while(true) {
+            int counterOne = 0;
+            int counterZero = 0;
+            System.out.print("Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ: ");
+            String input = in.nextLine();
+            for (char c : input.toCharArray()) {
+                if (c == '1') {
+                    counterOne++;
+                } else if (c == '0') {
+                    counterZero++;
+                }
             }
-            else if(c == '0'){
-                counterZero++;
-            }
-            else{
-                canNext = false;
+            if(counterOne + counterZero == input.length()){
+                System.out.printf("РљРѕР»РёС‡РµСЃС‚РІРѕ 0: %d\nРљРѕР»РёС‡РµСЃС‚РІРѕ 1: %d\nРћР±С‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃРёРјРІРѕР»РѕРІ: %d", counterZero, counterOne, input.length());
                 break;
             }
-        }
-        if(canNext){
-            System.out.printf("Количество 0: %d\nКоличество 1: %d\nОбщее количество символов: %d", counterZero, counterOne, input.length());
-        }
-        else{
-            System.out.println("Ошибка ввода.");
+            else{
+                System.out.println("РћС€РёР±РєР° РІРІРѕРґР°.");
+            }
         }
     }
 }
